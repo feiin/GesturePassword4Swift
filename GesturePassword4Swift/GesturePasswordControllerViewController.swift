@@ -15,14 +15,14 @@ class GesturePasswordControllerViewController: UIViewController,VerificationDele
     var previousString:String? = ""
     var password:String? = ""
     
-    
+    var secKey:String = "GesturePassword4Swift"
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         previousString = ""
-        password = KeychainWrapper.stringForKey(kSecValueData)
+        password = KeychainWrapper.stringForKey(secKey)
         
         if( password == "" || password == nil){
             
@@ -69,7 +69,7 @@ class GesturePasswordControllerViewController: UIViewController,VerificationDele
     func exist()->Bool{
         
     
-        password = KeychainWrapper.stringForKey(kSecValueData)
+        password = KeychainWrapper.stringForKey(secKey)
         if password == "" {
             return false
         }
@@ -79,7 +79,7 @@ class GesturePasswordControllerViewController: UIViewController,VerificationDele
     //MARK: - 清空记录
     func clear(){
         
-        KeychainWrapper.removeObjectForKey(kSecValueData)
+        KeychainWrapper.removeObjectForKey(secKey)
     }
     
     //MARK: - 改变手势密码
@@ -125,7 +125,7 @@ class GesturePasswordControllerViewController: UIViewController,VerificationDele
                 
                
               
-                 KeychainWrapper.setString(result, forKey: kSecValueData)
+                 KeychainWrapper.setString(result, forKey: secKey)
                 
                 gesturePasswordView.state!.textColor = UIColor(red: 2/255, green: 174/255, blue: 240/255, alpha: 1)
                 gesturePasswordView.state!.text = "已保存手势密码"

@@ -56,10 +56,12 @@ class TentacleView: UIView {
         super.init(coder: aDecoder)
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        
         
         var touchPoint:CGPoint
-        var touch:UITouch? = touches.anyObject() as? UITouch
+        var touch:UITouch? = touches.first  as? UITouch
         
         touchesArray.removeAll()
         touchedArray.removeAll()
@@ -105,10 +107,10 @@ class TentacleView: UIView {
     }
     
     
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
         
         var touchPoint:CGPoint
-        var touch:UITouch? = touches.anyObject() as? UITouch
+        var touch:UITouch? = touches.first as? UITouch
    
         
         if(touch != nil){
@@ -155,7 +157,7 @@ class TentacleView: UIView {
 
     }
     
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         var resultString:String = ""
         
         //println("end....\(touchedArray)")

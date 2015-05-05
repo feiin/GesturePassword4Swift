@@ -68,7 +68,7 @@ class KeychainWrapper {
         var objectValue: NSCoding?
         
         if let data = dataValue {
-            objectValue = NSKeyedUnarchiver.unarchiveObjectWithData(data) as NSCoding?
+            objectValue = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! NSCoding
         }
         
         return objectValue;
