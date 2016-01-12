@@ -5,6 +5,7 @@
 //  Created by feiin on 14/11/22.
 //  Copyright (c) 2014年 swiftmi. All rights reserved.
 //
+//  Edited by Glitter on 16/01/12.
 
 import UIKit
 
@@ -40,18 +41,18 @@ class GesturePasswordView: UIView,TouchBeginDelegate {
         
         // Initialization code
       
-        var view = UIView(frame:CGRectMake(frame.size.width/2-160, frame.size.height/2-80, 320, 320))
+        let view = UIView(frame:CGRectMake(frame.size.width/2-160, frame.size.height/2-80, 320, 320))
         
         for i in 0..<9 {
             
-            var row = Int(i/3)
-            var col = Int(i%3)
+            let row = Int(i/3)
+            let col = Int(i%3)
             
-            var distance = Int(320/3)
-            var size:Int = Int(Float(distance)/1.5)
-            var margin = Int(size/4)
+            let distance = Int(320/3)
+            let size:Int = Int(Float(distance)/1.5)
+            let margin = Int(size/4)
             
-            var gesturePasswordButton = GesturePasswordButton(frame: CGRectMake(CGFloat(col*distance+margin), CGFloat(row*distance), CGFloat(size), CGFloat(size)))
+            let gesturePasswordButton = GesturePasswordButton(frame: CGRectMake(CGFloat(col*distance+margin), CGFloat(row*distance), CGFloat(size), CGFloat(size)))
             
             gesturePasswordButton.tag = i
             
@@ -100,7 +101,7 @@ class GesturePasswordView: UIView,TouchBeginDelegate {
         
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
     
         super.init(coder: aDecoder)
     }
@@ -111,18 +112,18 @@ class GesturePasswordView: UIView,TouchBeginDelegate {
     override func drawRect(rect: CGRect) {
         // Drawing code
         
-        var context = UIGraphicsGetCurrentContext();
+        let context = UIGraphicsGetCurrentContext();
         
-        var rgb = CGColorSpaceCreateDeviceRGB();
-        var colors:[CGFloat] = [134/255,157/255,147/255,1.0,3/255,3/255,37/255,1.0]
+        let rgb = CGColorSpaceCreateDeviceRGB();
+        let colors:[CGFloat] = [134/255,157/255,147/255,1.0,3/255,3/255,37/255,1.0]
       
-        var  nilUnsafePointer:UnsafePointer<CGFloat> = nil
+        let  nilUnsafePointer:UnsafePointer<CGFloat> = nil
         
-        var gradient = CGGradientCreateWithColorComponents(rgb, colors, nilUnsafePointer,2)
+        let gradient = CGGradientCreateWithColorComponents(rgb, colors, nilUnsafePointer,2)
         
-        CGGradientDrawingOptions()
+        //CGGradientDrawingOptions()
      
-        CGContextDrawLinearGradient(context, gradient, CGPointMake(0.0,0.0),CGPointMake(0.0,self.frame.size.height), 0)
+        CGContextDrawLinearGradient(context, gradient, CGPointMake(0.0,0.0),CGPointMake(0.0,self.frame.size.height), [])
         
         
         

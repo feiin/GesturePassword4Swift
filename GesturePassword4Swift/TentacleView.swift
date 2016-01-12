@@ -5,6 +5,7 @@
 //  Created by feiin on 14/11/22.
 //  Copyright (c) 2014 year swiftmi. All rights reserved.
 //
+//  Edited by Glitter on 16/01/12.
 
 import UIKit
 
@@ -51,17 +52,17 @@ class TentacleView: UIView {
         success = true
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
        
         super.init(coder: aDecoder)
     }
     
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         
         var touchPoint:CGPoint
-        var touch:UITouch? = touches.first  as? UITouch
+        let touch:UITouch? = touches.first!
         
         touchesArray.removeAll()
         touchedArray.removeAll()
@@ -80,13 +81,13 @@ class TentacleView: UIView {
             
             for(var i=0;i<buttonArray.count;i++){
                 
-                var buttonTemp = buttonArray[i]
+                let buttonTemp = buttonArray[i]
                 buttonTemp.success = true
                 buttonTemp.selected = false
                 
                 if(CGRectContainsPoint(buttonTemp.frame,touchPoint)){
-                    var frameTemp = buttonTemp.frame
-                    var point = CGPointMake(frameTemp.origin.x+frameTemp.size.width/2,frameTemp.origin.y+frameTemp.size.height/2)
+                    let frameTemp = buttonTemp.frame
+                    let point = CGPointMake(frameTemp.origin.x+frameTemp.size.width/2,frameTemp.origin.y+frameTemp.size.height/2)
                     
                     var dict:Dictionary<String,Float> = [:]
                     dict["x"] = Float(point.x)
@@ -107,10 +108,10 @@ class TentacleView: UIView {
     }
     
     
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         var touchPoint:CGPoint
-        var touch:UITouch? = touches.first as? UITouch
+        let touch:UITouch? = touches.first!
    
         
         if(touch != nil){
@@ -120,11 +121,11 @@ class TentacleView: UIView {
             
             for(var i=0;i<buttonArray.count;i++){
                 
-                var buttonTemp = buttonArray[i]
+                let buttonTemp = buttonArray[i]
              
                 if(CGRectContainsPoint(buttonTemp.frame,touchPoint)){
                   
-                    var tps = touchedArray.filter{el in el=="num\(i)"}
+                    let tps = touchedArray.filter{el in el=="num\(i)"}
                     
                     if(tps.count > 0){
                         
@@ -137,8 +138,8 @@ class TentacleView: UIView {
                    
                     buttonTemp.setNeedsDisplay()
                     
-                    var frameTemp = buttonTemp.frame
-                    var point = CGPointMake(frameTemp.origin.x+frameTemp.size.width/2,frameTemp.origin.y+frameTemp.size.height/2)
+                    let frameTemp = buttonTemp.frame
+                    let point = CGPointMake(frameTemp.origin.x+frameTemp.size.width/2,frameTemp.origin.y+frameTemp.size.height/2)
                     var dict:Dictionary<String,Float> = [:]
                     dict["x"] = Float(point.x)
                     dict["y"] = Float(point.y)
@@ -157,7 +158,7 @@ class TentacleView: UIView {
 
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         var resultString:String = ""
         
         //println("end....\(touchedArray)")
@@ -165,7 +166,7 @@ class TentacleView: UIView {
             if(p["num"] == nil){
                 continue
             }
-            var num=Int(p["num"]!)
+            let num=Int(p["num"]!)
             resultString = resultString + "\(num)"
         }
         drawed = true
@@ -183,8 +184,8 @@ class TentacleView: UIView {
                 continue
             }
 
-            var selection:Int = Int(touchesArray[i]["num"]!)
-            var buttonTemp = buttonArray[selection]
+            let selection:Int = Int(touchesArray[i]["num"]!)
+            let buttonTemp = buttonArray[selection]
             buttonTemp.success = success
             buttonTemp.setNeedsDisplay()
         }
@@ -204,7 +205,7 @@ class TentacleView: UIView {
         
         for var i=0;i<touchesArray.count;i++ {
             
-            var context:CGContextRef = UIGraphicsGetCurrentContext()
+            let context:CGContextRef = UIGraphicsGetCurrentContext()!
       
             if(touchesArray[i]["num"] == nil){
                 touchesArray.removeAtIndex(i)
@@ -247,7 +248,7 @@ class TentacleView: UIView {
         
         for(var i=0;i<buttonArray.count;i++){
             
-            var buttonTemp = buttonArray[i]
+            let buttonTemp = buttonArray[i]
             buttonTemp.success = true
             buttonTemp.selected = false
             buttonTemp.setNeedsDisplay()

@@ -4,7 +4,8 @@
 //
 //  Created by feiin on 14/11/22.
 //  Copyright (c) 2014年 swiftmi. All rights reserved.
-//
+// 
+//  Edited by Glitter on 16/01/12.
 
 import UIKit
 
@@ -85,13 +86,13 @@ class GesturePasswordControllerViewController: UIViewController,VerificationDele
     //MARK: - 改变手势密码
     func change(){
         
-        println("改变手势密码")
+        print("改变手势密码")
         
     }
     
     //MARK: - 忘记密码
     func forget(){
-          println("忘记密码")
+          print("忘记密码")
     }
     
     
