@@ -5,6 +5,7 @@
 //  Created by feiin on 14/11/22.
 //  Copyright (c) 2014年 swiftmi. All rights reserved.
 //
+//  Edited by Glitter on 16/01/12.
 
 import UIKit
 
@@ -15,7 +16,7 @@ class GesturePasswordButton: UIView {
     
     var success:Bool = false
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
     }
@@ -34,7 +35,7 @@ class GesturePasswordButton: UIView {
     override func drawRect(rect: CGRect) {
         // Drawing code
         
-        var context:CGContextRef = UIGraphicsGetCurrentContext()
+        let context:CGContextRef = UIGraphicsGetCurrentContext()!
         
         if(selected){
             if(success){
@@ -48,7 +49,7 @@ class GesturePasswordButton: UIView {
                 CGContextSetRGBFillColor(context,208/255, 36/255, 36/255,1);
             }
             
-            var frame:CGRect = CGRectMake(bounds.size.width/2-bounds.size.width/8+1, bounds.size.height/2-bounds.size.height/8, bounds.size.width/4, bounds.size.height/4);
+            let frame:CGRect = CGRectMake(bounds.size.width/2-bounds.size.width/8+1, bounds.size.height/2-bounds.size.height/8, bounds.size.width/4, bounds.size.height/4);
             
             CGContextAddEllipseInRect(context,frame);
             CGContextFillPath(context);
@@ -61,7 +62,7 @@ class GesturePasswordButton: UIView {
    
         CGContextSetLineWidth(context, 2)
         
-        var frame:CGRect = CGRectMake(2, 2, bounds.size.width-3, bounds.size.height-3)
+        let frame:CGRect = CGRectMake(2, 2, bounds.size.width-3, bounds.size.height-3)
         CGContextAddEllipseInRect(context, frame)
         
         CGContextStrokePath(context)
