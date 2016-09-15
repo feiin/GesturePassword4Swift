@@ -46,7 +46,7 @@ class GesturePasswordControllerViewController: UIViewController,VerificationDele
     //MARK: - 验证手势密码
     func verify(){
         
-        gesturePasswordView = GesturePasswordView(frame: UIScreen.mainScreen().bounds)
+        gesturePasswordView = GesturePasswordView(frame: UIScreen.main.bounds)
         gesturePasswordView.tentacleView!.rerificationDelegate = self
         gesturePasswordView.tentacleView!.style = 1
         gesturePasswordView.gesturePasswordDelegate = self
@@ -57,11 +57,11 @@ class GesturePasswordControllerViewController: UIViewController,VerificationDele
     //MARK: - 重置手势密码
     func reset(){
         
-        gesturePasswordView = GesturePasswordView(frame: UIScreen.mainScreen().bounds)
+        gesturePasswordView = GesturePasswordView(frame: UIScreen.main.bounds)
         gesturePasswordView.tentacleView!.resetDelegate = self
         gesturePasswordView.tentacleView!.style = 2
-        gesturePasswordView.forgetButton!.hidden = true
-         gesturePasswordView.changeButton!.hidden = true
+        gesturePasswordView.forgetButton!.isHidden = true
+         gesturePasswordView.changeButton!.isHidden = true
         
         self.view.addSubview(gesturePasswordView)
         
@@ -96,22 +96,22 @@ class GesturePasswordControllerViewController: UIViewController,VerificationDele
     }
     
     
-    func verification(result:String)->Bool{
+    func verification(_ result:String)->Bool{
         
        // println("password:\(result)====\(password)")
         if(result == password){
             
-            gesturePasswordView.state!.textColor = UIColor.whiteColor()
+            gesturePasswordView.state!.textColor = UIColor.white
             gesturePasswordView.state!.text = "输入正确"
             
             return true
         }
-        gesturePasswordView.state!.textColor = UIColor.redColor()
+        gesturePasswordView.state!.textColor = UIColor.red
         gesturePasswordView.state!.text = "手势密码错误"
         return false
     }
     
-    func resetPassword(result: String) -> Bool {
+    func resetPassword(_ result: String) -> Bool {
     
         if(previousString == ""){
             previousString = result
@@ -135,7 +135,7 @@ class GesturePasswordControllerViewController: UIViewController,VerificationDele
                 return true;
             }else{
                 previousString = "";
-                gesturePasswordView.state!.textColor = UIColor.redColor()
+                gesturePasswordView.state!.textColor = UIColor.red
                 gesturePasswordView.state!.text = "两次密码不一致，请重新输入"
                 
                 return false

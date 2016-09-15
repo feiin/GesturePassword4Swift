@@ -26,58 +26,58 @@ class GesturePasswordButton: UIView {
         super.init(frame: frame)
         selected = false
         success = true
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         
     }
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         // Drawing code
         
-        let context:CGContextRef = UIGraphicsGetCurrentContext()!
+        let context:CGContext = UIGraphicsGetCurrentContext()!
         
         if(selected){
             if(success){
                 
-                CGContextSetRGBStrokeColor(context, 2/225, 174/255, 240/255, 1) //线条颜色
-                CGContextSetRGBFillColor(context, 2/225, 174/255, 240/255, 1)
+                context.setStrokeColor(red: 2/225, green: 174/255, blue: 240/255, alpha: 1) //线条颜色
+                context.setFillColor(red: 2/225, green: 174/255, blue: 240/255, alpha: 1)
                 
             }else{
             
-                CGContextSetRGBStrokeColor(context, 208/255, 36/255, 36/255,1);//线条颜色
-                CGContextSetRGBFillColor(context,208/255, 36/255, 36/255,1);
+                context.setStrokeColor(red: 208/255, green: 36/255, blue: 36/255,alpha: 1);//线条颜色
+                context.setFillColor(red: 208/255, green: 36/255, blue: 36/255,alpha: 1);
             }
             
-            let frame:CGRect = CGRectMake(bounds.size.width/2-bounds.size.width/8+1, bounds.size.height/2-bounds.size.height/8, bounds.size.width/4, bounds.size.height/4);
+            let frame:CGRect = CGRect(x: bounds.size.width/2-bounds.size.width/8+1, y: bounds.size.height/2-bounds.size.height/8, width: bounds.size.width/4, height: bounds.size.height/4);
             
-            CGContextAddEllipseInRect(context,frame);
-            CGContextFillPath(context);
+            context.addEllipse(in: frame);
+            context.fillPath();
 
         }else{
             
-            CGContextSetRGBStrokeColor(context, 1,1,1,1);//线条颜色
+            context.setStrokeColor(red: 1,green: 1,blue: 1,alpha: 1);//线条颜色
 
         }
    
-        CGContextSetLineWidth(context, 2)
+        context.setLineWidth(2)
         
-        let frame:CGRect = CGRectMake(2, 2, bounds.size.width-3, bounds.size.height-3)
-        CGContextAddEllipseInRect(context, frame)
+        let frame:CGRect = CGRect(x: 2, y: 2, width: bounds.size.width-3, height: bounds.size.height-3)
+        context.addEllipse(in: frame)
         
-        CGContextStrokePath(context)
+        context.strokePath()
         
         if(success){
-             CGContextSetRGBFillColor(context, 30/225, 175/255, 235/255, 0.3)
+             context.setFillColor(red: 30/225, green: 175/255, blue: 235/255, alpha: 0.3)
         }else{
-            CGContextSetRGBFillColor(context, 208/225, 36/255, 36/255, 0.3)
+            context.setFillColor(red: 208/225, green: 36/255, blue: 36/255, alpha: 0.3)
         }
         
-        CGContextAddEllipseInRect(context, frame)
+        context.addEllipse(in: frame)
         
         if(selected){
             
-            CGContextFillPath(context)
+            context.fillPath()
         }
     }
     

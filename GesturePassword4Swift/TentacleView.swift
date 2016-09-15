@@ -12,12 +12,12 @@ import UIKit
 
 protocol ResetDelegate
 {
-    func resetPassword(result:String) -> Bool
+    func resetPassword(_ result:String) -> Bool
 }
 
 protocol VerificationDelegate
 {
-    func verification(result:String) -> Bool
+    func verification(_ result:String) -> Bool
 }
 
 protocol TouchBeginDelegate{
@@ -47,8 +47,8 @@ class TentacleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.clearColor()
-        self.userInteractionEnabled = true
+        self.backgroundColor = UIColor.clear
+        self.isUserInteractionEnabled = true
         success = true
     }
 
@@ -58,7 +58,7 @@ class TentacleView: UIView {
     }
     
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         
         var touchPoint:CGPoint
@@ -76,7 +76,7 @@ class TentacleView: UIView {
         if(touch != nil){
             
             
-            touchPoint = touch!.locationInView(self)
+            touchPoint = touch!.location(in: self)
             
             
             for i in 0..<buttonArray.count {
@@ -85,9 +85,9 @@ class TentacleView: UIView {
                 buttonTemp.success = true
                 buttonTemp.selected = false
                 
-                if(CGRectContainsPoint(buttonTemp.frame,touchPoint)){
+                if(buttonTemp.frame.contains(touchPoint)){
                     let frameTemp = buttonTemp.frame
-                    let point = CGPointMake(frameTemp.origin.x+frameTemp.size.width/2,frameTemp.origin.y+frameTemp.size.height/2)
+                    let point = CGPoint(x: frameTemp.origin.x+frameTemp.size.width/2,y: frameTemp.origin.y+frameTemp.size.height/2)
                     
                     var dict:Dictionary<String,Float> = [:]
                     dict["x"] = Float(point.x)
@@ -108,7 +108,7 @@ class TentacleView: UIView {
     }
     
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         var touchPoint:CGPoint
         let touch:UITouch? = touches.first!
@@ -117,12 +117,12 @@ class TentacleView: UIView {
         if(touch != nil){
             
             
-            touchPoint = touch!.locationInView(self)
+            touchPoint = touch!.location(in: self)
             for i in 0 ..< buttonArray.count {
                 
                 let buttonTemp = buttonArray[i]
              
-                if(CGRectContainsPoint(buttonTemp.frame,touchPoint)){
+                if(buttonTemp.frame.contains(touchPoint)){
                   
                     let tps = touchedArray.filter{el in el=="num\(i)"}
                     
@@ -138,7 +138,7 @@ class TentacleView: UIView {
                     buttonTemp.setNeedsDisplay()
                     
                     let frameTemp = buttonTemp.frame
-                    let point = CGPointMake(frameTemp.origin.x+frameTemp.size.width/2,frameTemp.origin.y+frameTemp.size.height/2)
+                    let point = CGPoint(x: frameTemp.origin.x+frameTemp.size.width/2,y: frameTemp.origin.y+frameTemp.size.height/2)
                     var dict:Dictionary<String,Float> = [:]
                     dict["x"] = Float(point.x)
                     dict["y"] = Float(point.y)
@@ -157,7 +157,7 @@ class TentacleView: UIView {
 
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         var resultString:String = ""
         
         //println("end....\(touchedArray)")
@@ -194,7 +194,7 @@ class TentacleView: UIView {
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         // Drawing code
        
         if(touchesArray.count<=0){
@@ -204,36 +204,36 @@ class TentacleView: UIView {
         
         for i in 0..<touchesArray.count {
             
-            let context:CGContextRef = UIGraphicsGetCurrentContext()!
+            let context:CGContext = UIGraphicsGetCurrentContext()!
       
             if(touchesArray[i]["num"] == nil){
-                touchesArray.removeAtIndex(i)
+                touchesArray.remove(at: i)
                 //i = i-1;
                 continue
             }
             
             if (success) {
-                CGContextSetRGBStrokeColor(context, 2/255, 174/255, 240/255, 0.7);//线条颜色
+                context.setStrokeColor(red: 2/255, green: 174/255, blue: 240/255, alpha: 0.7);//线条颜色
             }
             else {
-                CGContextSetRGBStrokeColor(context, 208/255, 36/255, 36/255, 0.7);//红色
+                context.setStrokeColor(red: 208/255, green: 36/255, blue: 36/255, alpha: 0.7);//红色
             }
             
-            CGContextSetLineWidth(context,5)
+            context.setLineWidth(5)
             
-            CGContextMoveToPoint(context,CGFloat(touchesArray[i]["x"]!),CGFloat(touchesArray[i]["y"]!))
+            context.move(to: CGPoint(x: CGFloat(touchesArray[i]["x"]!), y: CGFloat(touchesArray[i]["y"]!)))
             
             if(i<touchesArray.count-1){
                 
-                CGContextAddLineToPoint(context,CGFloat(touchesArray[i+1]["x"]!),CGFloat(touchesArray[i+1]["y"]!))
+                context.addLine(to: CGPoint(x: CGFloat(touchesArray[i+1]["x"]!), y: CGFloat(touchesArray[i+1]["y"]!)))
             }
             else{
                 
                 if(success && drawed != true){
-                    CGContextAddLineToPoint(context, lineEndPoint!.x,lineEndPoint!.y);
+                    context.addLine(to: CGPoint(x: lineEndPoint!.x, y: lineEndPoint!.y));
                 }
             }
-            CGContextStrokePath(context)
+            context.strokePath()
             
         }
     }

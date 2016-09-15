@@ -29,10 +29,10 @@ class GesturePasswordView: UIView,TouchBeginDelegate {
     
     var changeButton:UIButton?
     
-   private var buttonArray:[GesturePasswordButton]=[]
+   fileprivate var buttonArray:[GesturePasswordButton]=[]
     
-   private var lineStartPoint:CGPoint?
-   private var lineEndPoint:CGPoint?
+   fileprivate var lineStartPoint:CGPoint?
+   fileprivate var lineEndPoint:CGPoint?
 
     
     override init(frame: CGRect) {
@@ -41,7 +41,7 @@ class GesturePasswordView: UIView,TouchBeginDelegate {
         
         // Initialization code
       
-        let view = UIView(frame:CGRectMake(frame.size.width/2-160, frame.size.height/2-80, 320, 320))
+        let view = UIView(frame:CGRect(x: frame.size.width/2-160, y: frame.size.height/2-80, width: 320, height: 320))
         
         for i in 0..<9 {
             
@@ -52,7 +52,7 @@ class GesturePasswordView: UIView,TouchBeginDelegate {
             let size:Int = Int(Float(distance)/1.5)
             let margin = Int(size/4)
             
-            let gesturePasswordButton = GesturePasswordButton(frame: CGRectMake(CGFloat(col*distance+margin), CGFloat(row*distance), CGFloat(size), CGFloat(size)))
+            let gesturePasswordButton = GesturePasswordButton(frame: CGRect(x: CGFloat(col*distance+margin), y: CGFloat(row*distance), width: CGFloat(size), height: CGFloat(size)))
             
             gesturePasswordButton.tag = i
             
@@ -70,31 +70,31 @@ class GesturePasswordView: UIView,TouchBeginDelegate {
         tentacleView!.touchBeginDelegate = self
         self.addSubview(tentacleView!)
         
-        state = UILabel(frame: CGRectMake(frame.size.width/2-140, frame.size.height/2-120, 280, 30))
-        state!.textAlignment = NSTextAlignment.Center
-        state!.font = UIFont.systemFontOfSize(14)
+        state = UILabel(frame: CGRect(x: frame.size.width/2-140, y: frame.size.height/2-120, width: 280, height: 30))
+        state!.textAlignment = NSTextAlignment.center
+        state!.font = UIFont.systemFont(ofSize: 14)
         self.addSubview(state!)
         
-        imgView = UIImageView(frame:CGRectMake(frame.size.width/2-35, frame.size.width/2-80, 70, 70))
-        imgView?.backgroundColor = UIColor.whiteColor()
+        imgView = UIImageView(frame:CGRect(x: frame.size.width/2-35, y: frame.size.width/2-80, width: 70, height: 70))
+        imgView?.backgroundColor = UIColor.white
         imgView!.layer.cornerRadius = 35
-        imgView!.layer.borderColor = UIColor.grayColor().CGColor
+        imgView!.layer.borderColor = UIColor.gray.cgColor
         imgView!.layer.borderWidth = 3
         self.addSubview(imgView!)
         
-        forgetButton = UIButton(frame:CGRectMake(frame.size.width/2-150, frame.size.height/2+220, 120, 30))
-        forgetButton!.titleLabel?.font = UIFont.systemFontOfSize(14)
-        forgetButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        forgetButton!.setTitle("忘记手势密码", forState: UIControlState.Normal)
-        forgetButton!.addTarget(self, action: Selector("forget"), forControlEvents: UIControlEvents.TouchDown)
+        forgetButton = UIButton(frame:CGRect(x: frame.size.width/2-150, y: frame.size.height/2+220, width: 120, height: 30))
+        forgetButton!.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        forgetButton!.setTitleColor(UIColor.white, for: UIControlState())
+        forgetButton!.setTitle("忘记手势密码", for: UIControlState())
+        forgetButton!.addTarget(self, action: #selector(GesturePasswordView.forget), for: UIControlEvents.touchDown)
         self.addSubview(forgetButton!)
 
         
-        changeButton = UIButton(frame:CGRectMake(frame.size.width/2+30, frame.size.height/2+220, 120, 30))
-        changeButton!.titleLabel?.font = UIFont.systemFontOfSize(14)
-        changeButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        changeButton!.setTitle("修改手势密码", forState: UIControlState.Normal)
-        changeButton!.addTarget(self, action: Selector("change"), forControlEvents: UIControlEvents.TouchDown)
+        changeButton = UIButton(frame:CGRect(x: frame.size.width/2+30, y: frame.size.height/2+220, width: 120, height: 30))
+        changeButton!.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        changeButton!.setTitleColor(UIColor.white, for: UIControlState())
+        changeButton!.setTitle("修改手势密码", for: UIControlState())
+        changeButton!.addTarget(self, action: #selector(GesturePasswordView.change), for: UIControlEvents.touchDown)
         self.addSubview(changeButton!)
         
         
@@ -109,7 +109,7 @@ class GesturePasswordView: UIView,TouchBeginDelegate {
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         // Drawing code
         
         let context = UIGraphicsGetCurrentContext();
@@ -117,13 +117,13 @@ class GesturePasswordView: UIView,TouchBeginDelegate {
         let rgb = CGColorSpaceCreateDeviceRGB();
         let colors:[CGFloat] = [134/255,157/255,147/255,1.0,3/255,3/255,37/255,1.0]
       
-        let  nilUnsafePointer:UnsafePointer<CGFloat> = nil
+        let  nilUnsafePointer:UnsafePointer<CGFloat>? = nil
         
-        let gradient = CGGradientCreateWithColorComponents(rgb, colors, nilUnsafePointer,2)
+        let gradient = CGGradient(colorSpace: rgb, colorComponents: colors, locations: nilUnsafePointer,count: 2)
         
         //CGGradientDrawingOptions()
      
-        CGContextDrawLinearGradient(context, gradient, CGPointMake(0.0,0.0),CGPointMake(0.0,self.frame.size.height), [])
+        context?.drawLinearGradient(gradient!, start: CGPoint(x: 0.0,y: 0.0),end: CGPoint(x: 0.0,y: self.frame.size.height), options: [])
         
         
         
